@@ -20,6 +20,24 @@ public class BreadthFirstSearchTest {
     }
 
     @Test
+    public void shouldFindPathInBigGraph() throws Exception {
+
+        GraphGenerator generator = new GraphGenerator();
+        Graph graph = generator.generateGraph(1_000_000, 2_500_000, true, 0);
+
+        Node source = new Node("SOURCE");
+        graph.insertNode(source);
+        Node target = new Node("TARGET");
+        graph.insertNode(target);
+
+        generator.insertPath(graph, 100, source, target);
+
+        BreadthFirstSearch.search(graph, "SOURCE", "TARGET");
+        Assert.assertTrue(target.tag > 0 && target.tag <= 100);
+
+    }
+
+    @Test
     public void shouldNotTagDirectedTarget() throws Exception {
         graph = new GraphIO().read(new File("./testGraphs/graph_small_directed.gka"));
 
