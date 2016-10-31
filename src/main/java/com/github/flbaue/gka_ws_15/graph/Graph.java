@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
  */
 public final class Graph {
 
-    private final Map<String, Node> nodes = new HashMap<>();
-    private final Map<String, Edge> edges = new HashMap<>();
+    final Map<String, Node> nodes = new HashMap<>();
+    final Map<String, Edge> edges = new HashMap<>();
 
     public boolean isDirected = false;
 
