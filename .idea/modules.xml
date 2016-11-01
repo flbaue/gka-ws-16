@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gka-ws-15.iml" filepath="$PROJECT_DIR$/.idea/modules/gka-ws-15.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gka-ws-15_main.iml" filepath="$PROJECT_DIR$/.idea/modules/gka-ws-15_main.iml" group="gka-ws-15" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gka-ws-15_test.iml" filepath="$PROJECT_DIR$/.idea/modules/gka-ws-15_test.iml" group="gka-ws-15" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gka-ws-16.iml" filepath="$PROJECT_DIR$/.idea/modules/gka-ws-16.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gka-ws-16_main.iml" filepath="$PROJECT_DIR$/.idea/modules/gka-ws-16_main.iml" group="gka-ws-16" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gka-ws-16_test.iml" filepath="$PROJECT_DIR$/.idea/modules/gka-ws-16_test.iml" group="gka-ws-16" />
     </modules>
   </component>
 </project>

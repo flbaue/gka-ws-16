@@ -21,6 +21,8 @@
     <bytecodeTargetLevel>
       <module name="gka-ws-15_main" target="1.8" />
       <module name="gka-ws-15_test" target="1.8" />
+      <module name="gka-ws-16_main" target="1.8" />
+      <module name="gka-ws-16_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
