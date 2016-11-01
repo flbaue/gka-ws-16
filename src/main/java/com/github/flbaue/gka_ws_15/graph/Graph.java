@@ -1,8 +1,6 @@
 package com.github.flbaue.gka_ws_15.graph;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -22,6 +20,25 @@ public final class Graph {
 
     public Edge getEdge(final String id) {
         return edges.get(id);
+    }
+
+    public Collection<Node> getNodes() {
+        return Collections.unmodifiableCollection(nodes.values());
+    }
+
+    public Collection<Edge> getEdges() {
+        return Collections.unmodifiableCollection(edges.values());
+    }
+
+    public Edge getMinEdge(final Node source, final Node target) {
+        Set<Edge> edges = getEdges(source, target);
+        return edges.stream()
+                .min((e1, e2) -> Integer.compare(e1.weight, e2.weight))
+                .get();
+    }
+
+    public int getNodesAmount() {
+        return nodes.size();
     }
 
     public void insertNode(final Node node) throws NodeAlreadyExistsException {

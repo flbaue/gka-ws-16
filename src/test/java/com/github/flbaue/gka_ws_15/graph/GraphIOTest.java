@@ -16,28 +16,26 @@ import java.util.Set;
  */
 public class GraphIOTest {
 
-    private GraphIO graphIO = new GraphIO();
-
     @Test
     public void shouldReadDirectedGraph() throws Exception {
 
         File graphFile = new File("testGraphs/graph_small_directed.gka");
 
-        Graph graph = graphIO.read(graphFile);
+        Graph graph = GraphIO.read(graphFile);
 
-        Assert.assertNotNull(graph.getNode("S"));
-        Assert.assertNotNull(graph.getNode("T"));
-        Assert.assertNotNull(graph.getNode("A"));
-        Assert.assertNotNull(graph.getNode("B"));
+        Assert.assertNotNull(graph.getNode("s"));
+        Assert.assertNotNull(graph.getNode("t"));
+        Assert.assertNotNull(graph.getNode("a"));
+        Assert.assertNotNull(graph.getNode("b"));
 
         Assert.assertNotNull(graph.getEdge("e1"));
         Assert.assertNotNull(graph.getEdge("e2"));
         Assert.assertNotNull(graph.getEdge("e3"));
 
-        Node nS = graph.getNode("S");
-        Node nT = graph.getNode("T");
-        Node nA = graph.getNode("A");
-        Node nB = graph.getNode("B");
+        Node nS = graph.getNode("s");
+        Node nT = graph.getNode("t");
+        Node nA = graph.getNode("a");
+        Node nB = graph.getNode("b");
 
         Edge e1 = graph.getEdge("e1");
         Edge e2 = graph.getEdge("e2");
@@ -78,8 +76,8 @@ public class GraphIOTest {
             testFile.delete();
         }
 
-        Node nS = new Node("S");
-        Node nT = new Node("T");
+        Node nS = new Node("s");
+        Node nT = new Node("t");
         Edge e1 = new Edge("e1", nS, nT, 99);
 
         Graph graph = new Graph();
@@ -88,7 +86,7 @@ public class GraphIOTest {
         graph.insertEdge(e1);
 
 
-        graphIO.write(graph, testFile);
+        GraphIO.write(graph, testFile);
 
         Assert.assertTrue(testFile.isFile());
 
@@ -106,10 +104,10 @@ public class GraphIOTest {
             testFile.delete();
         }
 
-        Node nS = new Node("S");
-        Node nA = new Node("A");
-        Node nT = new Node("T");
-        Node nB = new Node("B");
+        Node nS = new Node("s");
+        Node nA = new Node("a");
+        Node nT = new Node("t");
+        Node nB = new Node("b");
         Edge e1 = new Edge("e1", nS, nT, 99);
         Edge e2 = new Edge("e2", nS, nA, 0);
         Edge e3 = new Edge("e3", nA, nT, 1);
@@ -124,12 +122,12 @@ public class GraphIOTest {
         graph.insertEdge(e3);
 
         Set<String> expectedLines = new HashSet<>();
-        expectedLines.add("S--T(e1):99;");
-        expectedLines.add("S--A(e2):0;");
-        expectedLines.add("A--T(e3):1;");
-        expectedLines.add("B;");
+        expectedLines.add("s--t(e1):99;");
+        expectedLines.add("s--a(e2):0;");
+        expectedLines.add("a--t(e3):1;");
+        expectedLines.add("b;");
 
-        graphIO.write(graph, testFile);
+        GraphIO.write(graph, testFile);
 
         BufferedReader reader = new BufferedReader(new FileReader(testFile));
 
@@ -154,10 +152,10 @@ public class GraphIOTest {
             testFile.delete();
         }
 
-        Node nS = new Node("S");
-        Node nA = new Node("A");
-        Node nT = new Node("T");
-        Node nB = new Node("B");
+        Node nS = new Node("s");
+        Node nA = new Node("a");
+        Node nT = new Node("t");
+        Node nB = new Node("b");
         Edge e1 = new Edge("e1", nS, nT, 99);
         Edge e2 = new Edge("e2", nS, nA, 0);
         Edge e3 = new Edge("e3", nA, nT, 1);
@@ -173,13 +171,13 @@ public class GraphIOTest {
         graph.insertEdge(e3);
 
         Set<String> expectedLines = new HashSet<>();
-        expectedLines.add("S->T(e1):99;");
-        expectedLines.add("S->A(e2):0;");
-        expectedLines.add("A->T(e3):1;");
-        expectedLines.add("A->T(e3):1;");
-        expectedLines.add("B;");
+        expectedLines.add("s->t(e1):99;");
+        expectedLines.add("s->a(e2):0;");
+        expectedLines.add("a->t(e3):1;");
+        expectedLines.add("a->t(e3):1;");
+        expectedLines.add("b;");
 
-        graphIO.write(graph, testFile);
+        GraphIO.write(graph, testFile);
 
         BufferedReader reader = new BufferedReader(new FileReader(testFile));
 

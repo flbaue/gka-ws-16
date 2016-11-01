@@ -2,6 +2,7 @@ package com.github.flbaue.gka_ws_15.graph;
 
 import java.io.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,17 +11,20 @@ import java.util.regex.Pattern;
  */
 public class GraphIO {
 
-    public static final String SOURCE_NAME_PATTERN = "^\\w+";
-    public static final String TARGET_NAME_PATTERN = "-(-|>)\\w+";
-    public static final String EDGE_NAME_PATTERN = "\\(\\w+\\)";
-    public static final String EDGE_WEIGHT_PATTERN = ":\\d+";
-    public static final String FULL_LINE_PATTERN = SOURCE_NAME_PATTERN + "(" + TARGET_NAME_PATTERN + ")?(" + EDGE_NAME_PATTERN + ")?(" + EDGE_WEIGHT_PATTERN + ")?;$";
-    public static final String WHITE_SPACE_PATTERN = "\\s+";
+    private static final Logger LOGGER = Logger.getLogger(GraphIO.class.getName());
 
-    public Graph read(final File file) throws IOException {
+    private static final String SOURCE_NAME_PATTERN = "^\\w+";
+    private static final String TARGET_NAME_PATTERN = "-(-|>)\\w+";
+    private static final String EDGE_NAME_PATTERN = "\\(\\w+\\)";
+    private static final String EDGE_WEIGHT_PATTERN = ":\\d+";
+    private static final String FULL_LINE_PATTERN = SOURCE_NAME_PATTERN + "(" + TARGET_NAME_PATTERN + ")?(" + EDGE_NAME_PATTERN + ")?(" + EDGE_WEIGHT_PATTERN + ")?;$";
+    private static final String WHITE_SPACE_PATTERN = "\\s+";
+
+    public static Graph read(final File file) throws IOException {
 
         if (file == null || !file.isFile()) {
-            throw new IllegalArgumentException("ERROR GraphIO::read file does not exists");
+            LOGGER.severe("File does not exists");
+            throw new IllegalArgumentException("File does not exists");
         }
 
         final Pattern sourceNamePattern = Pattern.compile(SOURCE_NAME_PATTERN);
@@ -42,7 +46,7 @@ public class GraphIO {
 
 
                 if (!fullLinePattern.matcher(line).matches()) {
-                    System.out.println("WARNING GraphIO::read skipped line because it does not match pattern");
+                    LOGGER.warning("Skipped line because it does not match pattern");
                     return;
                 }
 
@@ -91,7 +95,7 @@ public class GraphIO {
                 try {
                     graph.insertNode(source);
                 } catch (Graph.NodeAlreadyExistsException e) {
-                    System.out.println("INFO GraphIO::read node with id '" + sourceName + "' already exists");
+                    LOGGER.info("Node with id '" + sourceName + "' already exists");
                     source = graph.getNode(source.id);
                 }
 
@@ -100,7 +104,7 @@ public class GraphIO {
                         graph.insertNode(target);
                     }
                 } catch (Graph.NodeAlreadyExistsException e) {
-                    System.out.println("INFO GraphIO::read node with id '" + sourceName + "' already exists");
+                    LOGGER.info("Node with id '" + sourceName + "' already exists");
                     target = graph.getNode(target.id);
                 }
 
@@ -120,7 +124,7 @@ public class GraphIO {
                     }
 
                 } catch (Graph.EdgeAlreadyExistsException e) {
-                    System.out.println("INFO GraphIO::read edge with id '" + edgeName + "' already exists");
+                   LOGGER.info("Edge with id '" + edgeName + "' already exists");
                 }
             });
 
@@ -130,7 +134,7 @@ public class GraphIO {
         return graph;
     }
 
-    public void write(final Graph graph, final File file) throws IOException {
+    public static void write(final Graph graph, final File file) throws IOException {
 
         try (FileWriter fileWriter = new FileWriter(file)) {
             BufferedWriter writer = new BufferedWriter(fileWriter);

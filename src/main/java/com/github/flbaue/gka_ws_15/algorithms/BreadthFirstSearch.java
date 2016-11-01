@@ -44,6 +44,10 @@ public final class BreadthFirstSearch {
         return path;
     }
 
+    public static Path search(final Graph graph, final Node source, final Node target) {
+        search(graph, source.id, target.id);
+        return getPath(graph, source.id, target.id);
+    }
 
     public static boolean search(final Graph graph, final String sourceId, final String targetId) {
         Node source = graph.getNode(sourceId);

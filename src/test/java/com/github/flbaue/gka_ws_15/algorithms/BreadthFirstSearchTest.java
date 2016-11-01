@@ -39,20 +39,20 @@ public class BreadthFirstSearchTest {
 
     @Test
     public void shouldNotTagDirectedTarget() throws Exception {
-        graph = new GraphIO().read(new File("./testGraphs/graph_small_directed.gka"));
+        graph = GraphIO.read(new File("./testGraphs/graph_small_directed.gka"));
 
-        BreadthFirstSearch.search(graph, "S", "B");
+        BreadthFirstSearch.search(graph, "s", "b");
 
-        Assert.assertEquals(-1, graph.getNode("B").tag);
+        Assert.assertEquals(-1, graph.getNode("b").tag);
 
-        Path path = BreadthFirstSearch.getPath(graph, "S", "B");
+        Path path = BreadthFirstSearch.getPath(graph, "s", "b");
 
-        Assert.assertEquals("[S]", path.toString());
+        Assert.assertEquals("[s]", path.toString());
     }
 
     @Test
     public void shouldTagDirectedTargetWith4() throws Exception {
-        graph = new GraphIO().read(new File("./testGraphs/graph_medium_directed.gka"));
+        graph = GraphIO.read(new File("./testGraphs/graph_medium_directed.gka"));
 
         BreadthFirstSearch.search(graph, "s", "t");
 

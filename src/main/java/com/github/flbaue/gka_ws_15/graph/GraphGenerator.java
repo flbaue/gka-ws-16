@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class GraphGenerator {
 
-    public Graph generateGraph(final int amountOfNodes, final int amountOfEdges, final boolean directed, final int maxWeight) throws Graph.NodeAlreadyExistsException, Graph.EdgeAlreadyExistsException {
+    public static Graph generateGraph(final int amountOfNodes, final int amountOfEdges, final boolean directed, final int maxWeight) throws Graph.NodeAlreadyExistsException, Graph.EdgeAlreadyExistsException {
 
         ArrayList<Node> nodes = new ArrayList<>(amountOfNodes);
         Set<Edge> edges = new HashSet<>(amountOfEdges);
@@ -36,7 +36,7 @@ public class GraphGenerator {
     }
 
 
-    public void insertPath(Graph graph, int pathLength, Node source, Node target) throws Graph.EdgeAlreadyExistsException {
+    public static void insertPath(Graph graph, int pathLength, Node source, Node target) throws Graph.EdgeAlreadyExistsException {
 
         if (pathLength == 1) {
             graph.insertEdge(new Edge("generatedPath", source, target, 0));
@@ -72,7 +72,7 @@ public class GraphGenerator {
     }
 
 
-    private int random(int max) {
+    private static int random(int max) {
         return (int) (Math.random() * max);
     }
 }
