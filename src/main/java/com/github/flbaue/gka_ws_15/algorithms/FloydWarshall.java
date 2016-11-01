@@ -13,9 +13,11 @@ public final class FloydWarshall {
         Matrix<Node, Node> transitMatrix = new Matrix<>(graph.getNodes(), null, null);
 
 
-        graph.getEdges().stream().forEach(e -> {
-            distanceMatrix.putValue(e.source, e.target, (double) e.weight); // get min edge
-            transitMatrix.putValue(e.source, e.target, e.target);
+        graph.getEdges().forEach(e -> {
+            if (e.weight < distanceMatrix.getValue(e.source, e.target)) {
+                distanceMatrix.putValue(e.source, e.target, (double) e.weight);
+                transitMatrix.putValue(e.source, e.target, e.target);
+            }
         });
 
 

@@ -32,13 +32,13 @@ public final class Dijkstra {
 
             Set<Node> neighbors = getUnvisitedNeighbors(node, graph, unvisitedNodes);
 
-            for (Node neighbor : neighbors) {
+            neighbors.forEach(neighbor -> {
                 double distance = distanceMap.get(node) + graph.getMinEdge(node, neighbor).weight;
                 if (distance < distanceMap.get(neighbor)) {
                     distanceMap.put(neighbor, distance);
                     transitMap.put(neighbor, node);
                 }
-            }
+            });
         }
 
         // Collect shortest path
