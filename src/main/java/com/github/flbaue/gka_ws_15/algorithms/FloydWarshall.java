@@ -9,8 +9,9 @@ public final class FloydWarshall {
 
     public static Path search(final Graph graph, final Node source, final Node target) {
 
-        Matrix<Node, Double> distanceMatrix = new Matrix<>(graph.getNodes(), Double.POSITIVE_INFINITY);
-        Matrix<Node, Node> transitMatrix = new Matrix<>(graph.getNodes(), null);
+        Matrix<Node, Double> distanceMatrix = new Matrix<>(graph.getNodes(), Double.POSITIVE_INFINITY, 0.0);
+        Matrix<Node, Node> transitMatrix = new Matrix<>(graph.getNodes(), null, null);
+
 
         graph.getEdges().stream().forEach(e -> {
             distanceMatrix.putValue(e.source, e.target, (double) e.weight); // get min edge
