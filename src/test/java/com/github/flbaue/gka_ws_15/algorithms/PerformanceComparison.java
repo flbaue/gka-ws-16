@@ -1,11 +1,10 @@
 package com.github.flbaue.gka_ws_15.algorithms;
 
-import com.github.flbaue.gka_ws_15.graph.Graph;
-import com.github.flbaue.gka_ws_15.graph.GraphGenerator;
-import com.github.flbaue.gka_ws_15.graph.Node;
-import com.github.flbaue.gka_ws_15.graph.Path;
+import com.github.flbaue.gka_ws_15.graph.*;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.File;
 
 /**
  * Created by florian on 01/11/2016.
@@ -56,5 +55,22 @@ public class PerformanceComparison {
 
         Assert.assertEquals(0, pathDijkstra.getTotalEdgeWeight());
         Assert.assertEquals(0, pathFW.getTotalEdgeWeight());
+    }
+
+    @Test
+    public void compare_Dijkstar_and_FW_with_graph3() throws Exception {
+        Graph graph03 = GraphIO.read(new File("./testGraphs/graph03.gka.txt"));
+
+        Node s = graph03.getNode("Kiel");
+        Node t = graph03.getNode("Oldenburg");
+
+        Path pathD = Dijkstra.search(graph03, s, t);
+        Path pathFW = FloydWarshall.search(graph03, s, t);
+
+        System.out.println(pathD.getTotalEdgeWeight());
+        System.out.println(pathD);
+        System.out.println(pathFW.getTotalEdgeWeight());
+        System.out.println(pathFW);
+
     }
 }

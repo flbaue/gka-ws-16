@@ -32,6 +32,9 @@ public final class Graph {
 
     public Edge getMinEdge(final Node source, final Node target) {
         Set<Edge> edges = getEdges(source, target);
+        if (!isDirected) {
+            edges.addAll(getEdges(target, source));
+        }
         return edges.stream()
                 .min((e1, e2) -> Integer.compare(e1.weight, e2.weight))
                 .get();

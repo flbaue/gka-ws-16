@@ -17,6 +17,10 @@ public final class FloydWarshall {
             if (e.weight < distanceMatrix.getValue(e.source, e.target)) {
                 distanceMatrix.putValue(e.source, e.target, (double) e.weight);
                 transitMatrix.putValue(e.source, e.target, e.target);
+                if (!graph.isDirected) {
+                    distanceMatrix.putValue(e.target, e.source, (double) e.weight);
+                    transitMatrix.putValue(e.target, e.source, e.source);
+                }
             }
         });
 
@@ -28,6 +32,10 @@ public final class FloydWarshall {
                     if (alt < distanceMatrix.getValue(i, j)) {
                         distanceMatrix.putValue(i, j, alt);
                         transitMatrix.putValue(i, j, transitMatrix.getValue(i, k));
+                        if (!graph.isDirected) {
+                            distanceMatrix.putValue(j, i, alt);
+                            transitMatrix.putValue(j, i, transitMatrix.getValue(j, k));
+                        }
                     }
                 });
             });
