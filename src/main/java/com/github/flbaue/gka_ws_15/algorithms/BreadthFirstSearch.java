@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  */
 public final class BreadthFirstSearch {
 
+    public static int nodeAccessCounter = 0;
 
     public static Path getPath(final Graph graph, final String sourceId, final String targetId) {
         Node source = graph.getNode(sourceId);
@@ -56,17 +57,19 @@ public final class BreadthFirstSearch {
         Objects.requireNonNull(source, "Source node not included in graph");
         Objects.requireNonNull(target, "Target node not included in graph");
 
+
         int currentTag = 0;
 
         source.tag = currentTag;
 
         final int tag1 = currentTag;
-        Set<Node> nodesWithTag = graph.getNodes(n -> n.tag == tag1);
+        Set<Node> nodesWithTag = graph.getNodes(n -> n.tag == tag1); nodeAccessCounter += graph.getNodesAmount();
         currentTag += 1;
 
         do {
             for (Node currentNode : nodesWithTag) {
                 Set<Node> neighbors = getUntaggedNeighbors(graph, currentNode);
+                nodeAccessCounter += currentNode.edges.size();
 
                 for (Node neighbor : neighbors) {
                     neighbor.tag = currentTag;
@@ -78,7 +81,7 @@ public final class BreadthFirstSearch {
             }
 
             final int tag2 = currentTag;
-            nodesWithTag = graph.getNodes(n -> n.tag == tag2);
+            nodesWithTag = graph.getNodes(n -> n.tag == tag2); nodeAccessCounter += graph.getNodesAmount();
             currentTag += 1;
 
         } while (nodesWithTag.size() > 0);

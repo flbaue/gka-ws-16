@@ -109,7 +109,7 @@ public class GraphIO {
                 }
 
 
-                // Generate edge if if necessary
+                // Generate edge id if necessary
                 if (edgeName == null || edgeName.isEmpty()) {
                     edgeName = "auto_id_" + edgeCounter.incrementAndGet();
                 }
