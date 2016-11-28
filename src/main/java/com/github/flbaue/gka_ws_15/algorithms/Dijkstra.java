@@ -15,12 +15,15 @@ import java.util.Set;
  */
 public final class Dijkstra {
 
+    public static long graphAccessCounter;
 
     public static Path search(final Graph graph, final Node source, final Node target) {
 
-        Map<Node, Double> distanceMap = new HashMap<>(graph.getNodesAmount());
-        Map<Node, Node> transitMap = new HashMap<>(graph.getNodesAmount());
-        Set<Node> unvisitedNodes = new HashSet<>(graph.getNodesAmount());
+        graphAccessCounter = 0;
+
+        Map<Node, Double> distanceMap = new HashMap<>(graph.getNodesAmount()); graphAccessCounter++;
+        Map<Node, Node> transitMap = new HashMap<>(graph.getNodesAmount()); graphAccessCounter++;
+        Set<Node> unvisitedNodes = new HashSet<>(graph.getNodesAmount()); graphAccessCounter++;
 
         initialize(graph, distanceMap, transitMap, unvisitedNodes);
 
@@ -33,7 +36,7 @@ public final class Dijkstra {
             Set<Node> neighbors = getUnvisitedNeighbors(node, graph, unvisitedNodes);
 
             neighbors.forEach(neighbor -> {
-                double distance = distanceMap.get(node) + graph.getMinEdge(node, neighbor).weight;
+                double distance = distanceMap.get(node) + graph.getMinEdge(node, neighbor).weight; graphAccessCounter++;
                 if (distance < distanceMap.get(neighbor)) {
                     distanceMap.put(neighbor, distance);
                     transitMap.put(neighbor, node);
@@ -47,7 +50,7 @@ public final class Dijkstra {
         path.addElement(currentNode);
         while (transitMap.get(currentNode) != null) {
             Node previousNode = transitMap.get(currentNode);
-            Edge edge = graph.getMinEdge(previousNode, currentNode);
+            Edge edge = graph.getMinEdge(previousNode, currentNode); graphAccessCounter++;
             path.addElement(edge);
             path.addElement(previousNode);
             currentNode = previousNode;
@@ -60,10 +63,13 @@ public final class Dijkstra {
     private static Set<Node> getUnvisitedNeighbors(final Node node, final Graph graph, final Set<Node> unvisitedNodes) {
         Set<Node> neighbors;
 
+        graphAccessCounter++;
         if (graph.isDirected) {
             neighbors = graph.getOutgoingNeighbors(node);
+            graphAccessCounter++;
         } else {
             neighbors = graph.getAdjacentNeighbors(node);
+            graphAccessCounter++;
         }
 
         neighbors.retainAll(unvisitedNodes);
@@ -87,7 +93,7 @@ public final class Dijkstra {
             distanceMap.put(n, Double.POSITIVE_INFINITY);
             transitMap.put(n, null);
             unvisitedNodes.add(n);
-        });
+        }); graphAccessCounter++;
     }
 
 

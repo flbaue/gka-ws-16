@@ -9,10 +9,10 @@ import java.io.File;
 /**
  * Created by florian on 01/11/2016.
  */
-public class PerformanceComparison {
+public class ComparisonTests {
 
-    @Test
-    public void compareGraphWith_500_NodesAnd_1_000_Edges() throws Exception {
+    //@Test
+    public void compareGraphWith_500_NodesAnd_1000_Edges() throws Exception {
         Graph graph = GraphGenerator.generateGraph(500, 1_000, true, 10);
         Node source = new Node("s");
         graph.insertNode(source);
@@ -67,10 +67,50 @@ public class PerformanceComparison {
         Path pathD = Dijkstra.search(graph03, s, t);
         Path pathFW = FloydWarshall.search(graph03, s, t);
 
-        System.out.println(pathD.getTotalEdgeWeight());
+        System.out.printf("\nDijkstra");
+        System.out.println("Graph access counter: " + Dijkstra.graphAccessCounter);
+        System.out.println("Total edge weight: " + pathD.getTotalEdgeWeight());
         System.out.println(pathD);
-        System.out.println(pathFW.getTotalEdgeWeight());
+
+        System.out.printf("\nFloydWarshall");
+        System.out.println("Graph access counter: " + FloydWarshall.graphAccessCounter);
+        System.out.println("Total edge weight: " + pathFW.getTotalEdgeWeight());
         System.out.println(pathFW);
 
+
+        Assert.assertEquals(pathD.getTotalEdgeWeight(), pathFW.getTotalEdgeWeight());
+    }
+
+    @Test
+    public void compare_Djikstra_and_FW_with_BIG() throws Exception {
+        Graph graph = GraphGenerator.generateGraph(100, 2500, true, 10);
+
+        Node s = new Node("s1");
+        Node t = new Node("t1");
+
+        graph.insertNode(s);
+        graph.insertNode(t);
+
+        GraphGenerator.insertPath(graph, 25, s, t);
+
+        Path pathD = Dijkstra.search(graph, s, t);
+        Path pathF = FloydWarshall.search(graph, s, t);
+
+        Assert.assertEquals(pathD.getTotalEdgeWeight(), pathF.getTotalEdgeWeight());
+        Assert.assertEquals(0, pathD.getTotalEdgeWeight());
+        Assert.assertEquals(25, pathD.getPathLength());
+        Assert.assertEquals(25, pathF.getPathLength());
+
+        System.out.printf("\nDijkstra");
+        System.out.println("Graph access counter: " + Dijkstra.graphAccessCounter);
+        System.out.println("Total edge weight: " + pathD.getTotalEdgeWeight());
+        System.out.println(pathD);
+        System.out.println("Path length: " + pathD.getPathLength());
+
+        System.out.printf("\nFloydWarshall");
+        System.out.println("Graph access counter: " + FloydWarshall.graphAccessCounter);
+        System.out.println("Total edge weight: " + pathF.getTotalEdgeWeight());
+        System.out.println(pathF);
+        System.out.println("Path length: " + pathF.getPathLength());
     }
 }

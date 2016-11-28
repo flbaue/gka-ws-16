@@ -123,7 +123,7 @@ public class GraphIO {
                         graph.insertEdge(edge);
                     }
 
-                } catch (Graph.EdgeAlreadyExistsException e) {
+                } catch (Graph.EdgeAlreadyExistsException | Graph.MissingNodeException  e) {
                    LOGGER.info("Edge with id '" + edgeName + "' already exists");
                 }
             });

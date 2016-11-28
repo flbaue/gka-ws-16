@@ -26,8 +26,8 @@ public final class Path {
         }
     }
 
-    public int getNumberOfHops() {
-        return ((elements.size() - 1) / 2) - 1;
+    public int getPathLength() {
+        return (elements.size() - 1) / 2;
     }
 
     public int getTotalEdgeWeight() {

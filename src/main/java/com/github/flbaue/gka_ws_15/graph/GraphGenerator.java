@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class GraphGenerator {
 
-    public static Graph generateGraph(final int amountOfNodes, final int amountOfEdges, final boolean directed, final int maxWeight) throws Graph.NodeAlreadyExistsException, Graph.EdgeAlreadyExistsException {
+    public static Graph generateGraph(final int amountOfNodes, final int amountOfEdges, final boolean directed, final int maxWeight) throws Graph.NodeAlreadyExistsException, Graph.EdgeAlreadyExistsException, Graph.MissingNodeException {
 
         ArrayList<Node> nodes = new ArrayList<>(amountOfNodes);
         Set<Edge> edges = new HashSet<>(amountOfEdges);
@@ -27,7 +27,7 @@ public class GraphGenerator {
             Node source = nodes.get(random(amountOfNodes));
             Node target = nodes.get(random(amountOfNodes));
 
-            Edge edge = new Edge("e" + i, source, target, random(maxWeight));
+            Edge edge = new Edge("e" + i, source, target, randomWeight(maxWeight));
 
             graph.insertEdge(edge);
         }
@@ -36,7 +36,7 @@ public class GraphGenerator {
     }
 
 
-    public static void insertPath(Graph graph, int pathLength, Node source, Node target) throws Graph.EdgeAlreadyExistsException {
+    public static void insertPath(Graph graph, int pathLength, Node source, Node target) throws Graph.EdgeAlreadyExistsException, Graph.NodeAlreadyExistsException, Graph.MissingNodeException {
 
         if (pathLength == 1) {
             graph.insertEdge(new Edge("generatedPath", source, target, 0));
@@ -67,12 +67,17 @@ public class GraphGenerator {
                 graph.insertEdge(edge);
 
                 lastHop = hop;
+
+                pathNodes.add(hop);
             }
         }
     }
 
-
     private static int random(int max) {
         return (int) (Math.random() * max);
+    }
+
+    private static int randomWeight(int max) {
+        return (int) Math.floor((Math.random() * max) + 1);
     }
 }

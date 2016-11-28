@@ -36,7 +36,7 @@ public final class Graph {
             edges.addAll(getEdges(target, source));
         }
         return edges.stream()
-                .min((e1, e2) -> Integer.compare(e1.weight, e2.weight))
+                .min(Comparator.comparingInt(e -> e.weight))
                 .get();
     }
 
@@ -52,8 +52,16 @@ public final class Graph {
         }
     }
 
-    public void insertEdge(final Edge edge) throws EdgeAlreadyExistsException {
-        if (!edges.containsKey(edge.id) && nodes.containsKey(edge.source.id) && nodes.containsKey(edge.target.id)) {
+    public void insertEdge(final Edge edge) throws EdgeAlreadyExistsException, MissingNodeException {
+        if (!nodes.containsKey(edge.source.id)) {
+            throw new MissingNodeException("Missing Node " + edge.source.id);
+        }
+
+        if (!nodes.containsKey(edge.target.id)) {
+            throw new MissingNodeException("Missing Node " + edge.target.id);
+        }
+
+        if (!edges.containsKey(edge.id)) {
             edges.put(edge.id, edge);
 
             if (!edge.source.edges.contains(edge)) {
@@ -65,7 +73,7 @@ public final class Graph {
             }
 
         } else {
-            throw new EdgeAlreadyExistsException();
+            throw new EdgeAlreadyExistsException("Edge.id: " + edge.id);
         }
     }
 
@@ -130,6 +138,15 @@ public final class Graph {
     }
 
     public static class EdgeAlreadyExistsException extends Exception {
+        public EdgeAlreadyExistsException(String message) {
+            super(message);
+        }
+    }
+
+    public static class MissingNodeException extends Exception {
+        public MissingNodeException(String message) {
+            super(message);
+        }
     }
 
 }
