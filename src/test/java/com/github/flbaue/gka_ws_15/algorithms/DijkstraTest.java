@@ -64,4 +64,34 @@ public class DijkstraTest {
 
     }
 
+    @Test
+    public void negativeEdges() throws Exception {
+        Graph graph = new Graph();
+
+        Node a = new Node("a");
+        Node b = new Node("b");
+        Node c = new Node("c");
+
+        Edge e1 = new Edge("e1", a, b, -1);
+        Edge e2 = new Edge("e2", b, a, -1);
+        Edge e3 = new Edge("e3", b, c, 1);
+
+        graph.insertNode(a);
+        graph.insertNode(b);
+        graph.insertNode(c);
+
+        graph.insertEdge(e1);
+        graph.insertEdge(e2);
+        graph.insertEdge(e3);
+
+        Path path = Dijkstra.search(graph, a, c);
+
+        System.out.printf("\nDijkstra");
+        System.out.println("Graph access counter: " + Dijkstra.graphAccessCounter);
+        System.out.println("Total edge weight: " + path.getTotalEdgeWeight());
+        System.out.println(path);
+        System.out.println("Path length: " + path.getPathLength());
+
+    }
+
 }

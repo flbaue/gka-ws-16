@@ -44,4 +44,35 @@ public class FloydWarshallTest {
         Assert.assertEquals(10, path.getPathLength());
     }
 
+    @Test
+    public void negativeEdges() throws Exception {
+        Graph graph = new Graph();
+
+        graph.isDirected = true;
+
+        Node a = new Node("a");
+        Node b = new Node("b");
+        Node c = new Node("c");
+
+        Edge e1 = new Edge("e1", a, b, -1);
+//        Edge e2 = new Edge("e2", b, a, -1);
+        Edge e3 = new Edge("e3", b, c, 1);
+
+        graph.insertNode(a);
+        graph.insertNode(b);
+        graph.insertNode(c);
+
+        graph.insertEdge(e1);
+//        graph.insertEdge(e2);
+        graph.insertEdge(e3);
+
+        Path path = FloydWarshall.search(graph, a, c);
+
+        System.out.printf("\nFloydWarshall");
+        System.out.println("Graph access counter: " + Dijkstra.graphAccessCounter);
+        System.out.println("Total edge weight: " + path.getTotalEdgeWeight());
+        System.out.println(path);
+        System.out.println("Path length: " + path.getPathLength());
+
+    }
 }
