@@ -34,7 +34,7 @@ public final class Path {
         int weight = 0;
         for (Object o : elements) {
             if (o instanceof Edge) {
-                weight += ((Edge) o).weight;
+                weight += ((Edge) o).value;
             }
         }
         return weight;

@@ -69,12 +69,12 @@ public class ComparisonTests {
 
         System.out.printf("\nDijkstra");
         System.out.println("Graph access counter: " + Dijkstra.graphAccessCounter);
-        System.out.println("Total edge weight: " + pathD.getTotalEdgeWeight());
+        System.out.println("Total edge value: " + pathD.getTotalEdgeWeight());
         System.out.println(pathD);
 
         System.out.printf("\nFloydWarshall");
         System.out.println("Graph access counter: " + FloydWarshall.graphAccessCounter);
-        System.out.println("Total edge weight: " + pathFW.getTotalEdgeWeight());
+        System.out.println("Total edge value: " + pathFW.getTotalEdgeWeight());
         System.out.println(pathFW);
 
 
@@ -103,13 +103,13 @@ public class ComparisonTests {
 
         System.out.printf("\nDijkstra");
         System.out.println("Graph access counter: " + Dijkstra.graphAccessCounter);
-        System.out.println("Total edge weight: " + pathD.getTotalEdgeWeight());
+        System.out.println("Total edge value: " + pathD.getTotalEdgeWeight());
         System.out.println(pathD);
         System.out.println("Path length: " + pathD.getPathLength());
 
         System.out.printf("\nFloydWarshall");
         System.out.println("Graph access counter: " + FloydWarshall.graphAccessCounter);
-        System.out.println("Total edge weight: " + pathF.getTotalEdgeWeight());
+        System.out.println("Total edge value: " + pathF.getTotalEdgeWeight());
         System.out.println(pathF);
         System.out.println("Path length: " + pathF.getPathLength());
     }

@@ -36,8 +36,46 @@ public class GraphGenerator {
     }
 
 
-    public static void insertPath(Graph graph, int pathLength, Node source, Node target) throws Graph.EdgeAlreadyExistsException, Graph.NodeAlreadyExistsException, Graph.MissingNodeException {
+    public static void insertFlow(Graph graph, int pathLength, Node source, Node target) throws Graph.EdgeAlreadyExistsException, Graph.NodeAlreadyExistsException, Graph.MissingNodeException {
+        if (pathLength == 1) {
+            graph.insertEdge(new Edge("generatedPath", source, target, 1));
 
+        } else {
+            Set<Node> pathNodes = new HashSet<>();
+            pathNodes.add(source);
+            pathNodes.add(target);
+
+            ArrayList<Node> graphNodes = new ArrayList<>(graph.nodes.values());
+
+            for (int j = 0; j < 5; j++) {
+                pathNodes.clear();
+                Node lastHop = null;
+                for (int i = 0; i < pathLength; i++) {
+
+                    Node hop;
+                    do {
+                        hop = graphNodes.get(random(graphNodes.size()));
+                    } while (pathNodes.contains(hop));
+
+                    Edge edge;
+                    if (i == 0) {
+                        edge = new Edge("generatedPath_" + i + "_" + j, source, hop, 100);
+                    } else if (i == pathLength - 1) {
+                        edge = new Edge("generatedPath_" + i + "_" + j, lastHop, target, 100);
+                    } else {
+                        edge = new Edge("generatedPath_" + i + "_" + j, lastHop, hop, 5);
+                    }
+                    graph.insertEdge(edge);
+
+                    lastHop = hop;
+
+                    pathNodes.add(hop);
+                }
+            }
+        }
+    }
+
+    public static void insertPath(Graph graph, int pathLength, Node source, Node target) throws Graph.EdgeAlreadyExistsException, Graph.NodeAlreadyExistsException, Graph.MissingNodeException {
         if (pathLength == 1) {
             graph.insertEdge(new Edge("generatedPath", source, target, 0));
 
@@ -54,7 +92,7 @@ public class GraphGenerator {
                 Node hop;
                 do {
                     hop = graphNodes.get(random(graphNodes.size()));
-                } while (pathNodes.contains(hop));
+                } while (pathNodes.contains(hop) && i != pathLength - 1);
 
                 Edge edge;
                 if (i == 0) {

@@ -36,7 +36,7 @@ public final class Graph {
             edges.addAll(getEdges(target, source));
         }
         return edges.stream()
-                .min(Comparator.comparingInt(e -> e.weight))
+                .min(Comparator.comparingInt(e -> e.value))
                 .get();
     }
 
@@ -122,7 +122,7 @@ public final class Graph {
                 .append("(")
                 .append(edge.id)
                 .append("):")
-                .append(edge.weight)
+                .append(edge.value)
                 .append(";\n")
         );
 

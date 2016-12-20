@@ -1,8 +1,6 @@
 package com.github.flbaue.gka_ws_15.graph;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -54,15 +52,15 @@ public class GraphIOTest {
 
         Assert.assertTrue(e1.source == nS);
         Assert.assertTrue(e1.target == nT);
-        Assert.assertTrue(e1.weight == 99);
+        Assert.assertTrue(e1.value == 99);
 
         Assert.assertTrue(e2.source == nS);
         Assert.assertTrue(e2.target == nA);
-        Assert.assertTrue(e2.weight == 0);
+        Assert.assertTrue(e2.value == 0);
 
         Assert.assertTrue(e3.source == nA);
         Assert.assertTrue(e3.target == nT);
-        Assert.assertTrue(e3.weight == 1);
+        Assert.assertTrue(e3.value == 1);
     }
 
     @Test

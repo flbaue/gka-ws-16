@@ -36,7 +36,7 @@ public final class Dijkstra {
             Set<Node> neighbors = getUnvisitedNeighbors(node, graph, unvisitedNodes);
 
             neighbors.forEach(neighbor -> {
-                double distance = distanceMap.get(node) + graph.getMinEdge(node, neighbor).weight; graphAccessCounter++;
+                double distance = distanceMap.get(node) + graph.getMinEdge(node, neighbor).value; graphAccessCounter++;
                 if (distance < distanceMap.get(neighbor)) {
                     distanceMap.put(neighbor, distance);
                     transitMap.put(neighbor, node);

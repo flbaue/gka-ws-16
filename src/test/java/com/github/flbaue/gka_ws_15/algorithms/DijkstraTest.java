@@ -88,7 +88,7 @@ public class DijkstraTest {
 
         System.out.printf("\nDijkstra");
         System.out.println("Graph access counter: " + Dijkstra.graphAccessCounter);
-        System.out.println("Total edge weight: " + path.getTotalEdgeWeight());
+        System.out.println("Total edge value: " + path.getTotalEdgeWeight());
         System.out.println(path);
         System.out.println("Path length: " + path.getPathLength());
 

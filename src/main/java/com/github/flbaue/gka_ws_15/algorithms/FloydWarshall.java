@@ -18,12 +18,12 @@ public final class FloydWarshall {
 
         graphAccessCounter++;
         graph.getEdges().forEach(e -> {
-            if (e.weight < distanceMatrix.getValue(e.source, e.target)) {
-                distanceMatrix.putValue(e.source, e.target, (double) e.weight);
+            if (e.value < distanceMatrix.getValue(e.source, e.target)) {
+                distanceMatrix.putValue(e.source, e.target, (double) e.value);
                 transitMatrix.putValue(e.source, e.target, e.target);
                 graphAccessCounter++;
                 if (!graph.isDirected) {
-                    distanceMatrix.putValue(e.target, e.source, (double) e.weight);
+                    distanceMatrix.putValue(e.target, e.source, (double) e.value);
                     transitMatrix.putValue(e.target, e.source, e.source);
                 }
             }

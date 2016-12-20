@@ -10,13 +10,15 @@ public final class Edge {
     public final String id;
     public final Node source;
     public final Node target;
-    public int weight;
+    public int value;
+
+    public Edge redge;
 
     public Edge(final String id, final Node source, final Node target) {
         this(id, source, target, 0);
     }
 
-    public Edge(final String id, final Node source, final Node target, final int weight) {
+    public Edge(final String id, final Node source, final Node target, final int value) {
         Objects.requireNonNull(id, "Edge id cannot be null");
         Objects.requireNonNull(id, "Edge source cannot be null");
         Objects.requireNonNull(id, "Edge target cannot be null");
@@ -24,7 +26,7 @@ public final class Edge {
         this.id = id;
         this.source = source;
         this.target = target;
-        this.weight = weight;
+        this.value = value;
     }
 
     @Override
