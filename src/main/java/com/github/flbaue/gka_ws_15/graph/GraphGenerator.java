@@ -42,13 +42,13 @@ public class GraphGenerator {
 
         } else {
             Set<Node> pathNodes = new HashSet<>();
-            pathNodes.add(source);
-            pathNodes.add(target);
 
             ArrayList<Node> graphNodes = new ArrayList<>(graph.nodes.values());
 
             for (int j = 0; j < 5; j++) {
                 pathNodes.clear();
+                pathNodes.add(source);
+                pathNodes.add(target);
                 Node lastHop = null;
                 for (int i = 0; i < pathLength; i++) {
 
